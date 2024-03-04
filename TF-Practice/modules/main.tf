@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "./module-vpc"
+  source = "./vpc-module"
   name   = var.name
   
   environment               = var.environment
