@@ -1,50 +1,35 @@
 variable "ami" {
   description = "ami id"
-  default     = ""
+  type = string
 }
 
 variable "ec2_count" {
   description = "ec2 intance count"
-  default     = ""
+   type =     string
 }
 
 variable "instance_type" {
   description = "instance type"
-  default     = ""
+  type = string
+  
 }
 
-variable "key_name" {
+variable "ssh_key_name" {
   description = "pem key name"
-  default     = ""
+   type = string
 }
 
 variable "security_group_ids" {
   description = "A list of security group IDs to assign to the ec2"
-  type        = list(string)
-  default     = [""]
+ 
 }
 
-variable "aws_subnet_id" {
-  description = "aws subnet id"
-  default     = ""
-}
-
-
-variable "ssh_private_key_file" {
-  description = "ssh private key file"
-  default     = ""
-}
  variable "instance-name" {
-   
- }
-variable "vpc_security_group_ids" {
-  description = "vpc security group ids"
-  default     = ""
+   type = string
 }
-
 variable "subnet_id" {
   description = "subnet id"
-  default     = ""
+ 
 }
 
 variable "volume_type" {
@@ -54,10 +39,7 @@ variable "volume_type" {
 
 variable "volume_size" {
   description = "volume size"
-  default     = ""
+  type = string
 }
 
-variable "delete_on_termination" {
-  description = "delete on termination"
-  type = bool
-}
+

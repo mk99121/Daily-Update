@@ -9,3 +9,13 @@ availability_zones =    [ "us-east-1a", "us-east-1b" ]
 private_subnet_cidr_blocks = [ "10.0.30.0/24", "10.0.40.0/24" ]
 
 environment = "test"
+
+
+/*EC2-Instance*/
+instance-name = "tf-instance"
+ec2_count     = 1
+ami = "ami-07761f3ae34c4478d"
+instance_type = "t2.micro"
+ssh_key_name = "ninja.pem"
+volume_size = "10"
+volume_type = "gp2"

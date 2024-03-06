@@ -10,20 +10,23 @@ module "vpc" {
 
 }
 
-module "ec2-instance" {
-  source                 = "./modules/ec2/"
-  name                   = var.instance-name
-  ec2_count              = var.ec2_count
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  key_name               = var.key_name
-  vpc_security_group_ids = [data.aws_security_group.id]
-  subnet_id              = module.vpc.public_subnets[0]
-  
-   volume_size            = var.volume_size
+module "ec2_instance" {
+  source        = "./ec2-module"
+  instance-name = var.instance-name
+  ami           = var.ami
+  ec2_count     = var.ec2_count
+  instance_type = var.instance_type
+  ssh_key_name  = var.ssh_key_name
+  security_group_ids = [module.sg.sg-ec2]
+  subnet_id      = module.vpc.public_subnet_id[0]
+  volume_type    = var.volume_type
+  volume_size    = var.volume_size
 }
 
-module "security-groups" {
+module "sg" {
   source = "./sg-module"
-  
+
+ 
+  vpc_id      = module.vpc.vpc_id
+
 }

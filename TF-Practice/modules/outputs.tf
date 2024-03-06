@@ -7,3 +7,8 @@ output "public_subnets" {
 output "private_subnets" {
   value = module.vpc.privat_esubnet_id
 }
+
+output "sg-ec2" {
+  value = module.sg.sg-ec2
+  
+}
