@@ -6,7 +6,7 @@ resource "aws_instance" "test" {
   key_name                    = var.ssh_key_name
   vpc_security_group_ids      = var.security_group_ids
   subnet_id                   = var.subnet_id
-  ebs_optimized               = true   
+  #ebs_optimized               = true   
 
   tags = {
     Name            = var.instance-name
