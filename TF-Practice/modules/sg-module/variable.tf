@@ -18,8 +18,8 @@ locals {
 	}]
 	egress_rules_ec2_sg = [{
 		from_port   = 0
-		to_port     = 65535
-		protocol    = "All"
+		to_port     = 0
+		protocol    = "-1"
 		cidr_block  = ["0.0.0.0/0"]
     }]
 }
