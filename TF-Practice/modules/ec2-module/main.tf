@@ -7,6 +7,8 @@ resource "aws_instance" "test" {
   vpc_security_group_ids      = var.security_group_ids
   subnet_id                   = var.subnet_id
   #ebs_optimized               = true   
+  user_data                  = file("${path.module}/user_data.sh")
+  user_data_replace_on_change = true 
 
   tags = {
     Name            = var.instance-name

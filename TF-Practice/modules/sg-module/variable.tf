@@ -10,6 +10,13 @@ locals {
 		cidr_block  = ["0.0.0.0/0"]
 	},
 	{
+		from_port  =  80 
+		to_port  =  80
+		description  =  "Windows jump box" 
+		protocol  =  "TCP" 
+		cidr_block  = ["0.0.0.0/0"]
+	},
+	{
 		from_port  =  3389 
 		to_port  =  3389 
 		description  =  "Windows jump box" 

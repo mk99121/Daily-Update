@@ -12,3 +12,6 @@ output "sg-ec2" {
   value = module.sg.sg-ec2
   
 }
+output "instance-public-ip" {
+  value = module.ec2_instance.instance_public_ip
+}
