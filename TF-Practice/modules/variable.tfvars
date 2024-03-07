@@ -16,6 +16,10 @@ instance-name = "tf-instance"
 ec2_count     = 1
 ami = "ami-07761f3ae34c4478d"
 instance_type = "t2.micro"
-ssh_key_name = "ninja.pem"
+ssh_key_name = "ninja"
 volume_size = "10"
 volume_type = "gp2"
+
+/*ALB*/
+alb_name = "TF-alb"
+load_balancer_type = "application"

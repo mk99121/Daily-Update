@@ -15,3 +15,11 @@ output "sg-ec2" {
 output "instance-public-ip" {
   value = module.ec2_instance.instance_public_ip
 }
+
+output "instance_id" {
+  value = module.ec2_instance.instance_id
+}
+
+output "alb_url" {
+  value = module.alb.alb_URL
+}

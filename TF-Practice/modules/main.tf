@@ -30,3 +30,17 @@ module "sg" {
   vpc_id      = module.vpc.vpc_id
 
 }
+
+module "alb" {
+  source = "./alb-module"
+  
+  alb_name = var.alb_name
+  load_balancer_type = var.load_balancer_type
+  
+  vpc_id = module.vpc.vpc_id
+  subnet_ids = module.vpc.public_subnet_id[*]
+  security_group_ids = [module.sg.sg-ec2]
+  instance_id = module.ec2_instance.instance_id[*]
+
+
+}

@@ -81,3 +81,11 @@ variable "instance_type" {
 }
 /**SECURITY-GROUPS**/
 
+/**ALB**/
+
+variable "alb_name" {
+  type = string
+}
+variable "load_balancer_type" {
+  type = string
+}
