@@ -32,10 +32,113 @@ To start writing ansible playbook start with 3 hypens[---]
 	    name: nginx  
 		state: present
 	- name: Start nginx
-	  service:
+	  service:               # to manage the service of nginx we have Service Module, we can start,stop,restart,enable,restart etc. using this module.
 	     name: nginx
 		 state: started
+		 
+Tomcat Playbook:
+
+---
+- name: Download Tomcat8 from tomcat.apache.org
+  hosts: testserver
+  vars:
+    download_url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.83/bin/apache-tomcat-8.5.83.tar.gz
+  tasks:
+   - name: Download Open JDK
+     become: yes
+     apt:
+      name: openjdk-8-jre-headless
+      update_cache: yes
+      state: present
+  
+   - name: validate if Java is availble 
+     shell: 
+      java -version
+     
+   - name: Create the group
+     become: yes
+     group: 
+      name: tomcat
+      state: present
+   - name: Create the user
+     become: yes
+     user:
+        name: tomcat
+        state: present
+   - name: Create a Directory /opt/tomcat8
+     become: yes
+     file:
+       path: /opt/tomcat8
+       state: directory
+       mode: 0755
+       owner: tomcat
+       group: tomcat
+   - name: Download Tomcat using unarchive
+     become: yes
+     unarchive:
+       src: "{{download_url}}"
+       dest: /opt/tomcat8
+       mode: 0755
+       remote_src: yes
+       group: tomcat
+       owner: tomcat
+    
+   - name: Move files to the /opt/tomcat8 directory
+     become: yes
+     become_user: tomcat
+     shell: "mv /opt/tomcat8/apache*/* /opt/tomcat8"
+   - name: Creating a service file
+     become: yes
+     copy: 
+      content: |-
+        [Unit]
+        Description=Tomcat Service
+        Requires=network.target
+        After=network.target
+        [Service]
+        Type=forking
+        User=tomcat
+        Environment="CATALINA_PID=/opt/tomcat8/logs/tomcat.pid"
+        Environment="CATALINA_BASE=/opt/tomcat8"
+        Environment="CATALINA_HOME=/opt/tomcat8"
+        Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+        ExecStart=/opt/tomcat8/bin/startup.sh
+        ExecStop=/opt/tomcat8/bin/shutdown.sh
+        Restart=on-abnormal
+        [Install]
+        WantedBy=multi-user.target
+      dest: /etc/systemd/system/tomcat.service
+   - name: Reload the SystemD to re-read configurations
+     become: yes
+     systemd:
+        daemon-reload: yes
+   - name: Enable the tomcat service and start
+     become: yes
+     systemd:
+        name: tomcat
+        enabled: yes
+        state: started
 		
-		
-		
-		
+To execute the playbooks need to follow the command with the playbook-name
+# ansible-playbook -i inventory palaybook-name.yml
+later it will execute the tasks mentioned in the playbook
+
+Ansible Roles:
+1: Ansible roles are efficient way of writing ansible playbooks that will help to write complex playbooks
+2. we can segregate and properly structure the playbooks
+
+To start using Ansible Roles: for example use role in creating kubernetes cluster,follow the command:
+cd into the created kubernetes dir#ansible-galaxy
+#ansible-galaxy role init kubernetes
+now ansible will create bunch of folders like:
+templates
+files
+tasks   #
+handlers
+tests
+vars
+defaults
+meta
+
+Using these folders we structure our ansible playbook for kubernetes
+
