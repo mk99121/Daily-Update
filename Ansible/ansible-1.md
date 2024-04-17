@@ -42,7 +42,7 @@ Tomcat Playbook:
 - name: Download Tomcat8 from tomcat.apache.org
   hosts: all
   vars:
-    download_url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.100/bin/apache-tomcat-8.5.100-deployer.tar.gz
+    download_url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.100/bin/apache-tomcat-8.5.100.tar.gz
   tasks:
    - name: Download Open JDK
      become: yes
