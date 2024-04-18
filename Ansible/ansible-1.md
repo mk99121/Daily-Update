@@ -122,6 +122,19 @@ To execute the playbooks need to follow the command with the playbook-name
 # ansible-playbook -i inventory palaybook-name.yml
 later it will execute the tasks mentioned in the playbook
 
+Ansible Variables:
+variables are temporary memory location used to store data,it will help to reuse the ansible code.
+There are theree types of variables in ansible:
+1.Special variables:
+these variables are pre-defined in ansible and any user cannot change the name or the value of the variable
+2.Fact variables:
+these are also ansible variables in which ansible will store data about host machines,For these kind of variable, we cannot define the value it comes from ansible only.
+You can directly use these variables in ansible playbooks or adhoc commands
+3.Custom Variables:
+These are the most commonly used type of variables in ansible
+These variables are declared by the user and values are also declared by the user itself
+
+
 Ansible Roles:
 1: Ansible roles are efficient way of writing ansible playbooks that will help to write complex playbooks
 2. we can segregate and properly structure the playbooks
