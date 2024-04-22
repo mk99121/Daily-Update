@@ -134,6 +134,56 @@ You can directly use these variables in ansible playbooks or adhoc commands
 These are the most commonly used type of variables in ansible
 These variables are declared by the user and values are also declared by the user itself
 
+For eg your variable names can be:
+Color: red
+VAR1: true
+name_user: sonal
+_var123: 456
+
+
+For eg: 
+
+color: yellow
+print the value of the variable {{color}}
+Output will be  : yellow
+
+A variable can have a list of values:
+For eg:
+
+color:
+-  Red     
+-  Blue   
+-  Green 
+-  Black  
+
+Task: print the variable value as green
+We will refer the variable which has multiple values:
+{{color[2]}}
+
+Output: green
+
+
+DEMO to use ansible variables:
+
+---
+- hosts: webserver
+  become: true
+  become_user: root
+  vars:
+    pkg_name: apache2
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+    - name: Install {{ pkg_name }} package on host server
+      apt:
+        name: "{{ pkg_name }}"
+        state: present
+    - name: Start a {{ pkg_name }} service in host server
+      service:
+        name: "{{ pkg_name }}"
+        state: started
+
 
 Ansible Roles:
 1: Ansible roles are efficient way of writing ansible playbooks that will help to write complex playbooks
